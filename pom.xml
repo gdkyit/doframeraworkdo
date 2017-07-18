@@ -56,11 +56,15 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- 连接MySQL数据库需要的jar包 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.34</version>
+			<version>6.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.31</version>
 		</dependency>
 
 		<!-- dbcp连接池需要的jar包 -->
@@ -220,6 +224,13 @@
 			<artifactId>cglib</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.paranamer/paranamer -->
+		<dependency>
+			<groupId>com.thoughtworks.paranamer</groupId>
+			<artifactId>paranamer</artifactId>
+			<version>2.8</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
