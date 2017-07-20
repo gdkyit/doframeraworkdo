@@ -30,7 +30,7 @@ public class DataSourceConfig {
     @Autowired  
     private Environment environment;  
   
-    @Bean(name = "primaryDataSource")
+    @Bean(name = "dataSource")
     @Primary
     public DruidDataSource dataSource() throws SQLException {  
     	DruidDataSource dataSource = new DruidDataSource();  
@@ -46,19 +46,19 @@ public class DataSourceConfig {
         return dataSource;  
     }  
     
-    @Bean(name = "primaryJdbcTemplate")
+    @Bean(name = "jdbcTemplate")
     public JdbcTemplate primaryJdbcTemplate(
-            @Qualifier("primaryDataSource") DruidDataSource dataSource) {
+            @Qualifier("dataSource") DruidDataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
     
     @Bean(name = "primaryNamedParameterJdbcTemplate")
-    public NamedParameterJdbcTemplate primaryNamedParameterJdbcTemplate(@Qualifier("primaryDataSource") DruidDataSource dataSource){
+    public NamedParameterJdbcTemplate primaryNamedParameterJdbcTemplate(@Qualifier("dataSource") DruidDataSource dataSource){
     	return new NamedParameterJdbcTemplate(dataSource);
     }
     
-    @Bean(name = "primaryTransactionManager")
-    public PlatformTransactionManager primaryPlatformTransactionManager(@Qualifier("primaryDataSource") DruidDataSource dataSource){
+    @Bean(name = "defaultTransactionManager")
+    public PlatformTransactionManager primaryPlatformTransactionManager(@Qualifier("dataSource") DruidDataSource dataSource){
 		return new DataSourceTransactionManager(dataSource);
     }
 

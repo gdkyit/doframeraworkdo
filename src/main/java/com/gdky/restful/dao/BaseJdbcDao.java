@@ -10,35 +10,24 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.transaction.PlatformTransactionManager;
 
 public class BaseJdbcDao {
-
 	@Autowired
-	@Qualifier("primaryJdbcTemplate")
-    protected JdbcTemplate jdbcTemplate;
+	protected JdbcTemplate jdbcTemplate;
 	@Autowired
-	@Qualifier("primaryDataSource")
-	protected DataSource dataSource;
-	@Autowired 
-	@Qualifier("primaryNamedParameterJdbcTemplate")
 	protected NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	@Autowired
-	@Qualifier("primaryTransactionManager")
-	protected PlatformTransactionManager transationManager;
-	/*
+
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(
 				dataSource);
-	}*/
+	}
 
 	/**
 	 * 插入一条记录并返回主键ID

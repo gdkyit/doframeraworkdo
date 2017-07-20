@@ -1,4 +1,5 @@
-package com.gdky.restful.service;
+package com.gdky.restful.security;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +15,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gdky.restful.entity.CustomUserDetails;
 import com.gdky.restful.entity.Role;
 import com.gdky.restful.entity.User;
-
-
+import com.gdky.restful.service.UserServiceImpl;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Resource
-	private AuthService authService;
+	private UserServiceImpl userService;
 
 	private static final Logger log = LoggerFactory
 			.getLogger(CustomUserDetailsService.class);
@@ -33,10 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		User user = authService.getUser(username);
+		User user = userService.getUser(username);
+		
 		if (user == null) {
 			log.warn("用户不正确");
-			throw new UsernameNotFoundException("账户或密码错误！");
+			throw new UsernameNotFoundException("User not found");
 		}
 		log.warn("获取用户");
 		CustomUserDetails u = new CustomUserDetails(user);
@@ -46,16 +46,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	public List<GrantedAuthority> getAuthorities(String username){
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		List<Role> roles = authService.getRolesByUser(username);
+		List<Role> roles = userService.getRolesByUser(username);
+		
 		for (Role role : roles) {
 
 			// 注意：这里要ROLE_加上前缀，否则在创建角色而的时候统一加上
 			authorities
-					.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+					.add(new SimpleGrantedAuthority("ROLE_" + role.getRole_Name()));
 		}
 	    return authorities;
 	}
-	
 	
 	
 }

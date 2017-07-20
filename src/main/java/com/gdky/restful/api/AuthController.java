@@ -1,17 +1,17 @@
 package com.gdky.restful.api;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.bstek.dorado.annotation.Expose;
-
-@Controller
+@RestController
 public class AuthController {
 
-	@Expose
-	public String test() {
-		return "OK";
-	}
 
+	@RequestMapping(value = "/pub/api", method = RequestMethod.GET)
+	public ResponseEntity<?> validateAuth() {
+		return ResponseEntity.ok("ok");
+	}
+	
 
 }

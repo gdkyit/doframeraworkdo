@@ -1,7 +1,6 @@
-package com.gdky.restful.security;
+package com.gdky.restful.api;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,24 +9,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 
-import com.gdky.restful.service.CustomUserDetailsService;
 import com.gdky.restful.utils.Md5Utils;
 /**
  * Created by xin on 15/1/10.
  */
-@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-	@Autowired
-	private  CustomUserDetailsService userDetailsService;
+	private  UserDetailsService userDetailsService;
  
 	public UserDetailsService getUserDetailsService() {
 		return userDetailsService;
 	}
 
 	public void setUserDetailsService(UserDetailsService userDetailsService) {
-		this.userDetailsService = (CustomUserDetailsService) userDetailsService;
+		this.userDetailsService = userDetailsService;
 	}
 
 	@Override
@@ -56,7 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		//与authentication里面的credentials相比较
 		
 		if(!password.equals(Md5Utils.encodeMd5((String)token.getCredentials()))) {
-			throw new BadCredentialsException("账户或密码错误！");
+			throw new BadCredentialsException("Invalid username/password");
 		}
 		//授权
 		return new UsernamePasswordAuthenticationToken(userDetails, password,userDetails.getAuthorities());
