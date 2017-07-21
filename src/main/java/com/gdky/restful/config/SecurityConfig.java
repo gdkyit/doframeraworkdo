@@ -3,6 +3,7 @@ package com.gdky.restful.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
@@ -13,12 +14,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.filter.GenericFilterBean;
 
+import com.bstek.dorado.web.filter.DelegatingFilterProxy;
 import com.gdky.restful.api.CustomAuthenticationProvider;
 import com.gdky.restful.security.EntryPointUnauthorizedHandler;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = "com.gdky.restful")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -87,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
 
 
 }
