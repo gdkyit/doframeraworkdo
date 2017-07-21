@@ -1,6 +1,7 @@
 package com.gdky.restful.api;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,20 +10,25 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+import com.gdky.restful.security.CustomUserDetailsService;
 import com.gdky.restful.utils.Md5Utils;
 /**
  * Created by xin on 15/1/10.
  */
+@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
-	private  UserDetailsService userDetailsService;
+	
+	@Autowired
+	private  CustomUserDetailsService userDetailsService;
  
 	public UserDetailsService getUserDetailsService() {
 		return userDetailsService;
 	}
 
 	public void setUserDetailsService(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
+		this.userDetailsService = (CustomUserDetailsService) userDetailsService;
 	}
 
 	@Override
@@ -37,14 +43,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		//
 		if(userDetails == null) {
 			throw new UsernameNotFoundException("用户名/密码无效");
-		//}else if (!userDetails.isEnabled()){
-	//		throw new DisabledException("用户已被禁用");
-	//	}else if (!userDetails.isAccountNonExpired()) {
-	//		throw new AccountExpiredException("账号已过期");
-	//	}else if (!userDetails.isAccountNonLocked()) {
-	//		throw new LockedException("账号已被锁定");
-	//	}else if (!userDetails.isCredentialsNonExpired()) {
-	//		throw new LockedException("凭证已过期");
 		}
 		//数据库用户的密码
 		String password = userDetails.getPassword();

@@ -3,5 +3,14 @@
   <Arguments/>
   <Context/>
   <Model/>
-  <View/>
+  <View>
+    <Button>
+      <ClientEvent name="onClick">view.get(&quot;#ajaxAction1&quot;).execute();&#xD;
+</ClientEvent>
+      <Property name="caption">dasasdasd</Property>
+    </Button>
+    <AjaxAction id="ajaxAction1">
+      <Property name="service">test#test</Property>
+    </AjaxAction>
+  </View>
 </ViewConfig>

@@ -22,12 +22,6 @@ public class BaseJdbcDao {
 	@Autowired
 	protected NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	@Autowired
-	public void setDataSource(DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(
-				dataSource);
-	}
 
 	/**
 	 * 插入一条记录并返回主键ID

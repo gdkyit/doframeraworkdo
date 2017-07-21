@@ -24,7 +24,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @Configuration
 //事务 
 @PropertySource(value = { "classpath:application.properties" }) 
-@EnableTransactionManagement  
+@EnableTransactionManagement (proxyTargetClass = true)
 public class DataSourceConfig {
 	
     @Autowired  
